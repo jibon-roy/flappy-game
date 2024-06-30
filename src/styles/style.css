@@ -10,6 +10,8 @@ main{
 }
 
 canvas {
-    background-color: black;
+    background-color: rgba(0, 0, 0, 0.100);
     margin: auto;
+    width: 480px;
+    height: 720px;
 }
