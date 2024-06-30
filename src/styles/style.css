@@ -7,10 +7,10 @@
 .game-area{
     display: flex;
     justify-items: center;
+        height: 480px;
 }
 
 #canvas {
-    background-color: rgba(0, 0, 0, 0.100);
     margin: auto;
     height: 480px;
     width: 100%;
@@ -18,10 +18,29 @@
     overflow: hidden;
 }
 
+
+#gamebg {
+    position: absolute;
+    width: 100%; /* Adjust based on the number of repetitions */
+    height: 100%;
+    display: flex;
+    animation: moveBackground 40s linear infinite;
+}
+
+@keyframes moveBackground {
+    from {
+        transform: translateX(0);
+    }
+    to {
+        transform: translateX(-100%);
+    }
+}
 #plane{
     width: 100px;
     height: 50px;
+    z-index: 1;
 }
+
 .game-action {
     width: 200px;
     margin: 50px auto;
