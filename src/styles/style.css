@@ -4,7 +4,7 @@
     box-sizing: border-box;
 }
 
-main{
+.game-area{
     display: flex;
     justify-items: center;
 }
@@ -21,4 +21,23 @@ main{
 #plane{
     width: 100px;
     height: 50px;
+}
+.game-action {
+    width: 200px;
+    margin: 50px auto;
+}
+
+#flyBtn {
+    padding: 10px 40px;
+    border: 3px solid rgb(202, 178, 161);
+    border-radius: 10px;
+    cursor: pointer;
+    background-color: rgb(223, 119, 0);
+    color: white;
+    font-size: 28px;
+    font-weight: 500;
+}
+
+#flyBtn:active {
+    background-color: rgb(255, 136, 0);
 }
