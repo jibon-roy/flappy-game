@@ -160,7 +160,9 @@ function stopFlying() {
 downInterval = setInterval(moveDown, 5);
 
 flyBtn.addEventListener("mousedown", startFlying);
+flyBtn.addEventListener("touchstart", startFlying);
 flyBtn.addEventListener("mouseup", stopFlying);
+flyBtn.addEventListener("touchend", stopFlying);
 
 flyBtn.addEventListener("click", (event) => {
   event.preventDefault();
