@@ -5,6 +5,16 @@ const gamebg = document.querySelector(".gamebg");
 const styleElement = document.createElement("style");
 document.head.appendChild(styleElement);
 
+const bgMusic = document.getElementById("bgMusic");
+
+function playMusic() {
+  bgMusic.play();
+}
+
+function pauseMusic() {
+  bgMusic.pause();
+}
+
 const enemy = document.querySelector(".enemy");
 const gameControl = document.getElementById("game-control");
 const enemyGroup1 = document.getElementById("enemy-group1");
@@ -17,46 +27,41 @@ const enemyGroups = [enemyGroup1, enemyGroup2, enemyGroup3, enemyGroup4];
 
 const getRandomNumberBetween = (min, max) => Math.random() * (max - min) + min;
 
-// Function to get a random enemy group
 const getRandomEnemyGroup = () => {
   const randomIndex = Math.floor(Math.random() * enemyGroups.length);
   return enemyGroups[randomIndex];
 };
 
-// Function to get a random enemy
 const getRandomEnemy = () => {
   const randomIndex = Math.floor(Math.random() * enemy.length);
   return enemy[randomIndex];
 };
 
 const createEnemies = (count) => {
-  let currentPosition = 0; // Initial position
+  let currentPosition = 0;
 
   for (let i = 0; i < count; i++) {
     const randomEnemyGroup = getRandomEnemyGroup();
     const clone = randomEnemyGroup.cloneNode(true);
-    currentPosition += 400 + getRandomNumberBetween(50, 100); // Add 400px plus a random value between 50 and 100px
+    currentPosition += 400 + getRandomNumberBetween(50, 100);
     clone.style.position = "absolute";
-    clone.style.height = "100%"; // Ensure the position style is set to absolute
+    clone.style.height = "100%";
     clone.style.left = currentPosition + "px";
-    clone.id = `${randomEnemyGroup.id}-clone-${i}`; // Assign a unique id to each clone
+    clone.id = `${randomEnemyGroup.id}-clone-${i}`;
     gameControl.appendChild(clone);
-    console.log(`Appended ${clone.id} at position ${clone.style.left}`);
   }
 
-  // Check for win condition based on last enemy group position
-  const lastEnemyGroup = currentPosition; // Assuming currentPosition is where the last enemy group ends
+  const lastEnemyGroup = currentPosition;
 
   const checkWinCondition = () => {
     const planeRect = plane.getBoundingClientRect();
-    const winPosition = lastEnemyGroup; // Adjust this position as needed
+    const winPosition = lastEnemyGroup;
 
     if (parseInt(plane.style.left) > winPosition) {
       showWinScreen();
     }
   };
 
-  // Check win condition on interval
   setInterval(checkWinCondition, 100);
 };
 
@@ -140,7 +145,6 @@ function moveUp() {
 }
 
 function startFlying(e) {
-  e.preventDefault();
   if (!isFlying) {
     plane.style.rotate = "-15deg";
     clearInterval(downInterval);
@@ -150,7 +154,6 @@ function startFlying(e) {
 }
 
 function stopFlying(e) {
-  e.preventDefault();
   if (isFlying) {
     plane.style.rotate = "0deg";
     clearInterval(upInterval);
@@ -165,6 +168,16 @@ flyBtn.addEventListener("mousedown", startFlying);
 flyBtn.addEventListener("touchstart", startFlying);
 flyBtn.addEventListener("mouseup", stopFlying);
 flyBtn.addEventListener("touchend", stopFlying);
+document.addEventListener("keydown", function (event) {
+  if (event.code === "Space") {
+    startFlying();
+  }
+});
+document.addEventListener("keyup", function (event) {
+  if (event.code === "Space") {
+    stopFlying();
+  }
+});
 
 flyBtn.addEventListener("click", (event) => {
   event.preventDefault();
@@ -192,6 +205,7 @@ function pauseGame() {
   gameControl.style.animationPlayState = "paused";
   clearInterval(upInterval);
   clearInterval(downInterval);
+  pauseMusic();
   isFlying = false;
 
   // Show the end screen
@@ -212,10 +226,13 @@ function pauseGame() {
     playAgainBtn.style.cursor = "pointer";
     playAgainBtn.style.marginTop = "20px";
 
+    // flyBtn.removeEventListener("click");
+
     endScreen.appendChild(playAgainBtn);
   }
 
   playAgainBtn.addEventListener("click", () => {
+    playMusic();
     location.reload();
   });
 }
@@ -223,5 +240,15 @@ function pauseGame() {
 setInterval(() => {
   if (checkCollision()) {
     pauseGame();
+    disableFlyButton();
   }
 }, 100);
+
+function disableFlyButton() {
+  // Disable button and remove event listeners
+  flyBtn.disabled = true;
+  flyBtn.removeEventListener("mousedown", stopFlying);
+  flyBtn.removeEventListener("mouseup", startFlying);
+  flyBtn.removeEventListener("touchend", stopFlying);
+  flyBtn.removeEventListener("touchstart", startFlying);
+}
