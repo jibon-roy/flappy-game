@@ -13,35 +13,36 @@
         <!-- <canvas id="canvas"></canvas> -->
         <div class="game-area">
             <div id="canvas">
-                <div id="game-control">
+                <div id="game-control" style="position: relative;">
                     <!-- <img src="./src/img/gamebg.jpg" alt="game bg image" class="gamebg">
                     <img src="./src/img/gamebg.jpg" alt="game bg image" class="gamebg"> -->
-                    <div class="enemy-group">
-                        <img src="./src/img/enemy.png" style="left: 500px; top: 0; rotate: 180deg;" alt="enemy image"
-                            class="enemy">
-                        <img src="./src/img/enemy.png" style="left: 500px; bottom: 0;" alt="enemy image" class="enemy">
-                    </div>
-                    <div class="enemy-group">
-                        <img src="./src/img/enemy.png" style="left: 1000px; top: 0; rotate: 180deg;" alt="enemy image"
-                            class="enemy">
-                        <img src="./src/img/enemy.png" style="left: 1000px; bottom: 0;" alt="enemy image" class="enemy">
-                    </div>
-                    <div class="enemy-group">
-                        <img src="./src/img/enemy.png" style="left: 1400px; top: 0; rotate: 180deg;" alt="enemy image"
-                            class="enemy">
-                        <img src="./src/img/enemy.png" style="left: 1400px; bottom: 0;" alt="enemy image" class="enemy">
-                    </div>
-                    <div class="enemy-group">
-                        <img src="./src/img/enemy.png" style="left: 1800px; top: 0; rotate: 180deg;" alt="enemy image"
-                            class="enemy">
-                        <img src="./src/img/enemy.png" style="left: 1800px; bottom: 0;" alt="enemy image" class="enemy">
-                    </div>
-                    <div class="enemy-group">
-                        <img src="./src/img/enemy.png" style="left: 2500px; top: 0; rotate: 180deg;" alt="enemy image"
-                            class="enemy">
-                        <img src="./src/img/enemy.png" style="left: 2500px; bottom: 0;" alt="enemy image" class="enemy">
-                    </div>
+                    <div style="display: none;">
+                        <div class="enemy-group" id="enemy-group1">
+                            <img src="./src/img/enemy.png" style="top: -90px; rotate: 180deg;" alt="enemy image"
+                                class="enemy">
+                            <img src="./src/img/enemy.png" style="bottom: -90px;" alt="enemy image" class="enemy">
+                        </div>
 
+                        <div class="enemy-group" id="enemy-group2">
+                            <img src="./src/img/enemy.png" style="top: -150px; rotate: 180deg;" alt="enemy image"
+                                class="enemy">
+                            <img src="./src/img/enemy.png" style="bottom: -50px;" alt="enemy image" class="enemy">
+                        </div>
+
+                        <div class="enemy-group" id="enemy-group3">
+                            <img src="./src/img/enemy.png" style="top: -50px; rotate: 180deg;" alt="enemy image"
+                                class="enemy">
+                            <img src="./src/img/enemy.png" style="bottom: -150px;" alt="enemy image" class="enemy">
+                        </div>
+
+                        <div class="enemy-group" id="enemy-group4">
+                            <img src="./src/img/enemy.png" style="top: -200px; rotate: 180deg;" alt="enemy image"
+                                class="enemy">
+                            <img src="./src/img/enemy.png" style="bottom: 0px;" alt="enemy image" class="enemy">
+                        </div>
+
+
+                    </div>
                 </div>
 
                 <img src="./src/img/plane.png" alt="plane image" id="plane">
