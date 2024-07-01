@@ -96,15 +96,15 @@
   height: 270px;
 }
 
-#play-again-btn {
+#play-btn {
   background: url("../img/play.png");
   transition: 0.2s;
 }
-#play-again-btn:active {
+#play-btn:active {
   scale: 0.97;
 }
 
-#end-screen {
+#start-screen {
   position: absolute;
   top: 0;
   left: 0;
@@ -118,7 +118,7 @@
   display: none; /* Initially hidden */
 }
 
-#end-screen button {
+#start-screen button {
   padding: 20px 40px;
   font-size: 24px;
   background-color: #fff;

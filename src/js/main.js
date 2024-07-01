@@ -5,6 +5,15 @@ const gamebg = document.querySelector(".gamebg");
 const styleElement = document.createElement("style");
 document.head.appendChild(styleElement);
 
+const enemy = document.querySelectorAll(".enemy");
+const gameControl = document.getElementById("game-control");
+const enemyGroup1 = document.getElementById("enemy-group1");
+const enemyGroup2 = document.getElementById("enemy-group2");
+const enemyGroup3 = document.getElementById("enemy-group3");
+const enemyGroup4 = document.getElementById("enemy-group4");
+const enemyGroup5 = document.getElementById("enemy-group5");
+const endScreen = document.getElementById("end-screen");
+
 const bgMusic = document.getElementById("bgMusic");
 const destroy = document.getElementById("destroy");
 const jump = document.getElementById("jump");
@@ -30,15 +39,13 @@ function playJump() {
   jump.play();
 }
 
-const enemy = document.querySelectorAll(".enemy"); // Use querySelectorAll for getting all enemies
-const gameControl = document.getElementById("game-control");
-const enemyGroup1 = document.getElementById("enemy-group1");
-const enemyGroup2 = document.getElementById("enemy-group2");
-const enemyGroup3 = document.getElementById("enemy-group3");
-const enemyGroup4 = document.getElementById("enemy-group4");
-const endScreen = document.getElementById("end-screen");
-
-const enemyGroups = [enemyGroup1, enemyGroup2, enemyGroup3, enemyGroup4];
+const enemyGroups = [
+  enemyGroup1,
+  enemyGroup2,
+  enemyGroup3,
+  enemyGroup4,
+  enemyGroup5,
+];
 
 const getRandomNumberBetween = (min, max) => Math.random() * (max - min) + min;
 
@@ -48,12 +55,12 @@ const getRandomEnemyGroup = () => {
 };
 
 const createEnemies = (count) => {
-  let currentPosition = 0;
+  let currentPosition = 400;
 
   for (let i = 0; i < count; i++) {
     const randomEnemyGroup = getRandomEnemyGroup();
     const clone = randomEnemyGroup.cloneNode(true);
-    currentPosition += 400 + getRandomNumberBetween(50, 100);
+    currentPosition += 350 + getRandomNumberBetween(50, 100);
     clone.style.position = "absolute";
     clone.style.height = "100%";
     clone.style.left = currentPosition + "px";
@@ -108,7 +115,7 @@ function showWinScreen() {
   gameControl.appendChild(playAgainBtn);
 }
 
-createEnemies(30);
+createEnemies(parseInt(gameControl.offsetWidth / 20));
 
 plane.style.position = "absolute";
 plane.style.left = "100px";
@@ -181,16 +188,25 @@ flyBtn.addEventListener("mousedown", startFlying);
 flyBtn.addEventListener("touchstart", startFlying);
 flyBtn.addEventListener("mouseup", stopFlying);
 flyBtn.addEventListener("touchend", stopFlying);
-document.addEventListener("keydown", function (event) {
+// canvas.addEventListener("mousedown", startFlying);
+// canvas.addEventListener("touchstart", startFlying);
+// canvas.addEventListener("mouseup", stopFlying);
+// canvas.addEventListener("touchend", stopFlying);
+
+function onKeyDown(event) {
   if (event.code === "Space") {
     startFlying();
   }
-});
-document.addEventListener("keyup", function (event) {
+}
+
+function onKeyUp(event) {
   if (event.code === "Space") {
     stopFlying();
   }
-});
+}
+
+document.addEventListener("keydown", onKeyDown);
+document.addEventListener("keyup", onKeyUp);
 
 flyBtn.addEventListener("click", (event) => {
   event.preventDefault();
@@ -223,32 +239,31 @@ function pauseGame() {
   isFlying = false;
 
   // Show the end screen
-  const endScreen = document.getElementById("end-screen");
+  const endScreen = document.getElementById("start-screen");
   endScreen.style.display = "flex";
 
   // Check if the play again button already exists
-  let playAgainBtn = document.getElementById("play-again-btn");
-  if (!playAgainBtn) {
-    playAgainBtn = document.createElement("button");
-    playAgainBtn.id = "play-again-btn";
-    playAgainBtn.textContent = "Play Again";
-    playAgainBtn.style.padding = "25px 100px";
-    playAgainBtn.style.backgroundColor = "transparent";
-    playAgainBtn.style.border = "none";
-    playAgainBtn.style.cursor = "pointer";
-    playAgainBtn.style.marginTop = "20px";
-    playAgainBtn.style.backgroundSize = "cover";
-    playAgainBtn.style.backgroundRepeat = "no-repeat";
-    playAgainBtn.style.backgroundPosition = "center";
-    playAgainBtn.style.color = "#fff"; // Set text color if needed
-    playAgainBtn.style.textIndent = "-9999px"; // Hide text off-screen
-
-    endScreen.appendChild(playAgainBtn);
+  let playBtn = document.getElementById("play-btn");
+  if (!playBtn) {
+    playBtn = document.createElement("button");
+    playBtn.id = "play-btn";
+    playBtn.textContent = "Play Again";
+    playBtn.style.padding = "25px 100px";
+    playBtn.style.backgroundColor = "transparent";
+    playBtn.style.border = "none";
+    playBtn.style.cursor = "pointer";
+    playBtn.style.marginTop = "20px";
+    playBtn.style.backgroundSize = "cover";
+    playBtn.style.backgroundRepeat = "no-repeat";
+    playBtn.style.backgroundPosition = "center";
+    playBtn.style.color = "#fff";
+    playBtn.style.textIndent = "-9999px";
+    endScreen.appendChild(playBtn);
   }
 
   playDestroy();
 
-  playAgainBtn.addEventListener("click", () => {
+  playBtn.addEventListener("click", () => {
     // playMusic();
     location.reload();
   });
@@ -263,10 +278,11 @@ setInterval(() => {
 }, 100);
 
 function disableFlyButton() {
-  // Disable button and remove event listeners
   flyBtn.disabled = true;
   flyBtn.removeEventListener("mousedown", startFlying);
   flyBtn.removeEventListener("mouseup", stopFlying);
   flyBtn.removeEventListener("touchstart", startFlying);
   flyBtn.removeEventListener("touchend", stopFlying);
+  document.removeEventListener("keydown", onKeyDown);
+  document.removeEventListener("keyup", onKeyUp);
 }
