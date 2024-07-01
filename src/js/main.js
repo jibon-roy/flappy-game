@@ -139,7 +139,8 @@ function moveUp() {
   }
 }
 
-function startFlying() {
+function startFlying(e) {
+  e.preventDefault();
   if (!isFlying) {
     plane.style.rotate = "-15deg";
     clearInterval(downInterval);
@@ -148,7 +149,8 @@ function startFlying() {
   }
 }
 
-function stopFlying() {
+function stopFlying(e) {
+  e.preventDefault();
   if (isFlying) {
     plane.style.rotate = "0deg";
     clearInterval(upInterval);
