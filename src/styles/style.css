@@ -38,14 +38,14 @@
     /* animation: moveBackground 40s linear infinite; */
 /* } */
 
-@keyframes moveBackground {
+/* @keyframes moveBackground {
     from {
         transform: translateX(0);
     }
     to {
         transform: translateX(-100%);
     }
-}
+} */
 
 #plane{
     width: 100px;
@@ -75,7 +75,6 @@
 
 .enemy{
     position: absolute;
-    width: 50px;
-    height: 250px;
-    bottom: 0;
+    width: 40px;
+    height: 180px;
 }
