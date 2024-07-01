@@ -1,30 +1,30 @@
-*{
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 
-.game-area{
-    display: flex;
-    justify-items: center;
-        height: 480px;
+.game-area {
+  display: flex;
+  justify-items: center;
+  height: 480px;
 }
 
 #canvas {
-    margin: auto;
-    height: 480px;
-    width: 100%;
-    position: relative;
-    overflow: hidden;
+  margin: auto;
+  height: 480px;
+  width: 100%;
+  position: relative;
+  overflow: hidden;
 }
 
 #game-control {
-    width: 2000%;
-    background-image: url("../img/gamebg.jpg");
-    background-repeat: repeat-x;
-    background-size: contain;
-    height: 100%;
-    /* animation: moveBackground 200s linear infinite; */
+  width: 2000%;
+  background-image: url("../img/gamebg.jpg");
+  background-repeat: repeat-x;
+  background-size: contain;
+  height: 100%;
+  /* animation: moveBackground 200s linear infinite; */
 }
 
 /* .gamebg {
@@ -33,9 +33,8 @@
     position: absolute;
     object-fit: fill; */
 
-
-    /* display: flex; */
-    /* animation: moveBackground 40s linear infinite; */
+/* display: flex; */
+/* animation: moveBackground 40s linear infinite; */
 /* } */
 
 /* @keyframes moveBackground {
@@ -47,38 +46,74 @@
     }
 } */
 
-#plane{
-    width: 80px;
-    height: 40px;
-    z-index: 1;
+#plane {
+  width: 80px;
+  height: 40px;
+  z-index: 1;
 }
 
 .game-action {
-    width: 200px;
-    margin: 50px auto;
+  width: 200px;
+  margin: 50px auto;
 }
 
 #flyBtn {
-    padding: 10px 40px;
-    border: 3px solid rgb(202, 178, 161);
-    border-radius: 10px;
-    cursor: pointer;
-    background-color: rgb(223, 119, 0);
-    color: white;
-    font-size: 28px;
-    font-weight: 500;
+  padding: 10px 40px;
+  border: 3px solid rgb(202, 178, 161);
+  border-radius: 10px;
+  cursor: pointer;
+  background-color: rgb(223, 119, 0);
+  color: white;
+  font-size: 28px;
+  font-weight: 500;
 }
 
 #flyBtn:active {
-    background-color: rgb(255, 136, 0);
+  background-color: rgb(255, 136, 0);
+}
+
+#win-text {
+  position: absolute;
+  color: white;
+  font-size: 48px;
+  font-weight: bold;
+  text-align: center;
+  width: 100%;
+  text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000,
+    1px 1px 0 #000; /* Black stroke */
+  top: 50%; /* Center vertically */
+  transform: translateY(-50%); /* Center vertically */
 }
 
 .game-group {
-    position: absolute;
+  position: absolute;
 }
 
-.enemy{
-    position: absolute;
-    width: 50px;
-    height: 270px;
+.enemy {
+  position: absolute;
+  width: 50px;
+  height: 270px;
+}
+
+#end-screen {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: rgba(0, 0, 0, 0.5); /* semi-transparent black background */
+  z-index: 50;
+  display: none; /* Initially hidden */
+}
+
+#end-screen button {
+  padding: 20px 40px;
+  font-size: 24px;
+  background-color: #fff;
+  color: #000;
+  border: none;
+  cursor: pointer;
 }
