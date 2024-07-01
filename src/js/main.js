@@ -6,22 +6,37 @@ const styleElement = document.createElement("style");
 document.head.appendChild(styleElement);
 
 const bgMusic = document.getElementById("bgMusic");
+const destroy = document.getElementById("destroy");
+const jump = document.getElementById("jump");
 
 function playMusic() {
   bgMusic.play();
 }
-
 function pauseMusic() {
   bgMusic.pause();
 }
 
-const enemy = document.querySelector(".enemy");
+let destroyPlayed = false;
+
+function playDestroy() {
+  if (!destroyPlayed) {
+    destroy.play();
+    destroyPlayed = true;
+  }
+}
+
+function playJump() {
+  jump.currentTime = 0; // Restart the sound
+  jump.play();
+}
+
+const enemy = document.querySelectorAll(".enemy"); // Use querySelectorAll for getting all enemies
 const gameControl = document.getElementById("game-control");
 const enemyGroup1 = document.getElementById("enemy-group1");
 const enemyGroup2 = document.getElementById("enemy-group2");
 const enemyGroup3 = document.getElementById("enemy-group3");
 const enemyGroup4 = document.getElementById("enemy-group4");
-const endScreen = document.getElementById("#end-screen");
+const endScreen = document.getElementById("end-screen");
 
 const enemyGroups = [enemyGroup1, enemyGroup2, enemyGroup3, enemyGroup4];
 
@@ -30,11 +45,6 @@ const getRandomNumberBetween = (min, max) => Math.random() * (max - min) + min;
 const getRandomEnemyGroup = () => {
   const randomIndex = Math.floor(Math.random() * enemyGroups.length);
   return enemyGroups[randomIndex];
-};
-
-const getRandomEnemy = () => {
-  const randomIndex = Math.floor(Math.random() * enemy.length);
-  return enemy[randomIndex];
 };
 
 const createEnemies = (count) => {
@@ -62,7 +72,7 @@ const createEnemies = (count) => {
     }
   };
 
-  setInterval(checkWinCondition, 100);
+  setInterval(checkWinCondition, 5000);
 };
 
 function showWinScreen() {
@@ -133,6 +143,8 @@ function moveDown() {
   }
 }
 
+let isMusicPlaying = false;
+
 function moveUp() {
   const currentTop = parseInt(plane.style.top);
   const newTop = currentTop - 5;
@@ -142,9 +154,10 @@ function moveUp() {
   } else {
     stopFlying();
   }
+  playJump();
 }
 
-function startFlying(e) {
+function startFlying() {
   if (!isFlying) {
     plane.style.rotate = "-15deg";
     clearInterval(downInterval);
@@ -153,7 +166,7 @@ function startFlying(e) {
   }
 }
 
-function stopFlying(e) {
+function stopFlying() {
   if (isFlying) {
     plane.style.rotate = "0deg";
     clearInterval(upInterval);
@@ -201,11 +214,12 @@ function checkCollision() {
   }
   return false;
 }
+
 function pauseGame() {
   gameControl.style.animationPlayState = "paused";
   clearInterval(upInterval);
   clearInterval(downInterval);
-  pauseMusic();
+  // pauseMusic();
   isFlying = false;
 
   // Show the end screen
@@ -218,24 +232,28 @@ function pauseGame() {
     playAgainBtn = document.createElement("button");
     playAgainBtn.id = "play-again-btn";
     playAgainBtn.textContent = "Play Again";
-    playAgainBtn.style.padding = "20px 40px";
-    playAgainBtn.style.fontSize = "24px";
-    playAgainBtn.style.backgroundColor = "#fff";
-    playAgainBtn.style.color = "#000";
+    playAgainBtn.style.padding = "25px 100px";
+    playAgainBtn.style.backgroundColor = "transparent";
     playAgainBtn.style.border = "none";
     playAgainBtn.style.cursor = "pointer";
     playAgainBtn.style.marginTop = "20px";
-
-    // flyBtn.removeEventListener("click");
+    playAgainBtn.style.backgroundSize = "cover";
+    playAgainBtn.style.backgroundRepeat = "no-repeat";
+    playAgainBtn.style.backgroundPosition = "center";
+    playAgainBtn.style.color = "#fff"; // Set text color if needed
+    playAgainBtn.style.textIndent = "-9999px"; // Hide text off-screen
 
     endScreen.appendChild(playAgainBtn);
   }
 
+  playDestroy();
+
   playAgainBtn.addEventListener("click", () => {
-    playMusic();
+    // playMusic();
     location.reload();
   });
 }
+
 // Game loop to check for collisions
 setInterval(() => {
   if (checkCollision()) {
@@ -247,8 +265,8 @@ setInterval(() => {
 function disableFlyButton() {
   // Disable button and remove event listeners
   flyBtn.disabled = true;
-  flyBtn.removeEventListener("mousedown", stopFlying);
-  flyBtn.removeEventListener("mouseup", startFlying);
-  flyBtn.removeEventListener("touchend", stopFlying);
+  flyBtn.removeEventListener("mousedown", startFlying);
+  flyBtn.removeEventListener("mouseup", stopFlying);
   flyBtn.removeEventListener("touchstart", startFlying);
+  flyBtn.removeEventListener("touchend", stopFlying);
 }

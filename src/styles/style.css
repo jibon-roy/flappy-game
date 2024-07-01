@@ -96,6 +96,14 @@
   height: 270px;
 }
 
+#play-again-btn {
+  background: url("../img/play.png");
+  transition: 0.2s;
+}
+#play-again-btn:active {
+  scale: 0.97;
+}
+
 #end-screen {
   position: absolute;
   top: 0;
