@@ -113,9 +113,9 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  display: none;
   background-color: rgba(0, 0, 0, 0.5);
   z-index: 50;
-  display: none;
 }
 
 #start-screen button {
