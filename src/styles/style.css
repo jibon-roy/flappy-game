@@ -18,14 +18,25 @@
     overflow: hidden;
 }
 
-
-#gamebg {
-    position: absolute;
-    width: 100%; /* Adjust based on the number of repetitions */
+#game-control {
+    width: 2000%;
+    background-image: url("../img/gamebg.jpg");
+    background-repeat: repeat-x;
+    background-size: contain;
     height: 100%;
-    display: flex;
-    animation: moveBackground 40s linear infinite;
+    animation: moveBackground 200s linear infinite;
 }
+
+/* .gamebg {
+    width: 700px;
+    height: 100%;
+    position: absolute;
+    object-fit: fill; */
+
+
+    /* display: flex; */
+    /* animation: moveBackground 40s linear infinite; */
+/* } */
 
 @keyframes moveBackground {
     from {
@@ -35,6 +46,7 @@
         transform: translateX(-100%);
     }
 }
+
 #plane{
     width: 100px;
     height: 50px;
@@ -59,4 +71,11 @@
 
 #flyBtn:active {
     background-color: rgb(255, 136, 0);
+}
+
+.enemy{
+    position: absolute;
+    width: 50px;
+    height: 250px;
+    bottom: 0;
 }

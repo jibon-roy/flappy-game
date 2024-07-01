@@ -1,7 +1,9 @@
 const canvas = document.getElementById("canvas");
 const plane = document.getElementById("plane");
 const flyBtn = document.getElementById("flyBtn");
-const gamebg = document.getElementById("gamebg");
+const gamebg = document.querySelector(".gamebg");
+const enemy = document.querySelectorAll(".enemy");
+// const gameControl = document.getElementById("game-control");
 
 plane.style.position = "absolute";
 plane.style.left = "100px";
